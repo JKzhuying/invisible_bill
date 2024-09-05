@@ -35,7 +35,7 @@ h1 {
     font-size: 20px; /* 放大4号字体 */
 }
 .query-area form:first-of-type {
-    margin-bottom: 100px; /* 增加第一个表单的底部边距 */
+    margin-bottom: 210px; /* 增加第一个表单的底部边距 */
 }
 button, input[type="submit"] {
     background-color: #4CAF50; /* 按钮背景颜色 */
