@@ -59,29 +59,50 @@ def index():
 
     return render_template('index.html')
 
-@app.route('/query', methods=['GET'])
-def query():
-    name = request.args.get('name')
-    telephone = request.args.get('telephone')
+@app.route('/query_combined', methods=['GET'])
+def query_combined():
+    search_term = request.args.get('search')
     cursor = db.cursor()
+    
+    if search_term:
+        try:
+            # 构建查询条件
+            query = """
+            SELECT * FROM invisible_bill
+            WHERE name = %s OR telephone = %s
+            """
+            cursor.execute(query, (search_term, search_term))
+            results = cursor.fetchall()
+            return render_template('query_results.html', results=results)
+        except mysql.connector.Error as err:
+            print("Error: ", err)
+            return "查询失败", 500
+    else:
+        return "请输入搜索条件", 400
+
+#@app.route('/query', methods=['GET'])
+#def query():
+#    name = request.args.get('name')
+#    telephone = request.args.get('telephone')
+#    cursor = db.cursor()
 
     # 构建查询条件
-    condition = []
-    params = []
-    if name:
-        condition.append("name = %s")
-        params.append(name)
-    if telephone:
-        condition.append("telephone = %s")
-        params.append(telephone)
+#    condition = []
+#    params = []
+#    if name:
+#        condition.append("name = %s")
+#        params.append(name)
+#    if telephone:
+#        condition.append("telephone = %s")
+#        params.append(telephone)
 
-    if condition:
-        query = "SELECT * FROM invisible_bill WHERE " + " OR ".join(condition)
-        cursor.execute(query, tuple(params))
-        results = cursor.fetchall()
-        return render_template('query_results.html', results=results)
-    else:
-        return "No search terms provided", 400
+#    if condition:
+#        query = "SELECT * FROM invisible_bill WHERE " + " OR ".join(condition)
+#        cursor.execute(query, tuple(params))
+#        results = cursor.fetchall()
+#        return render_template('query_results.html', results=results)
+#    else:
+#        return "No search terms provided", 400
     
 @app.route('/delete', methods=['POST'])
 def delete():
