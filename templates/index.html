@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>弘仁口腔种植记录系统</title>
+    <script>
+        function validateForm() {
+            var total = document.forms["dataForm"]["total"].value;
+            var notes = document.forms["dataForm"]["notes"].value;
+            if (total < 0 && notes.trim() === '') {
+                alert("请输入退款原因");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>弘仁口腔种植记录系统</h1>
+    <form name="dataForm" action="/" method="post" onsubmit="return validateForm()">
+        <label for="case_number">病例号:</label>
+        <input type="text" id="case_number" name="case_number" readonly><br><br>
+        
+        <label for="姓名">姓名:</label>
+        <input type="text" id="姓名" name="name"><br><br>
+        <label for="电话">电话:</label>
+        <input type="text" id="电话" name="telephone"><br><br>
+        <label for="植体品牌">植体品牌:</label>
+        <select id="植体品牌" name="implant">
+            <option value="创英（ITI）">创英（ITI）</option>
+            <option value="奥齿泰（K）">奥齿泰（K）</option>
+            <option value="皓圣（K）">皓圣（K）</option>
+        </select><br><br>
+        
+        <label for="牙位">牙位:</label>
+        <input type="text" id="牙位" name="position"><br><br>
+        <label for="数量">数量:</label>
+        <input type="number" id="数量" name="quantity"><br><br>
+        <label for="总价">总价:</label>
+        <input type="number" id="总价" name="total"><br><br>
+        <label for="备注">备注:</label>
+        <textarea id="备注" name="notes"></textarea><br><br>
+        <input type="submit" value="保存">
+        <button type="button" onclick="clearForm()">清除</button>
+    </form>
+
+    <form action="/query" method="get">
+        <label for="name">姓名:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="telephone">电话:</label>
+        <input type="text" id="telephone" name="telephone"><br><br>
+        <input type="submit" value="查询">
+    </form>
+
+    <script>
+        function clearForm() {
+            document.getElementById('姓名').value = '';
+            document.getElementById('电话').value = '';
+            document.getElementById('植体品牌').selectedIndex = 0;
+            document.getElementById('牙位').value = '';
+            document.getElementById('数量').value = '';
+            document.getElementById('总价').value = '';
+            document.getElementById('备注').value = '';
+            document.getElementById('case_number').value = '';
+        }
+        
+        // 页面加载完成后生成病例号
+        window.onload = function() {
+            var year = new Date().getFullYear().toString().slice(-4);
+            var month = ('0' + (new Date().getMonth() + 1)).slice(-2);
+            var day = ('0' + new Date().getDate()).slice(-2);
+            var randomNum = Math.floor(Math.random() * 9000) + 1000; // 生成四位数随机数
+            var caseNumber = year + month + day + randomNum;
+            document.getElementById('case_number').value = caseNumber;
+        };
+    </script>
+
+    <form action="/search_by_date" method="get">
+        <label for="start_date">开始日期 (YYYY-MM-DD):</label>
+        <input type="date" id="start_date" name="start_date" required><br><br>
+        
+        <label for="end_date">结束日期 (YYYY-MM-DD):</label>
+        <input type="date" id="end_date" name="end_date" required><br><br>
+        
+        <input type="submit" value="查询">
+    </form>
+</body>
+</html>

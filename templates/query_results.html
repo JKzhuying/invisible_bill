@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>查询结果</title>
+    <style>
+        .negative {
+            color: red;
+        }
+        .total-sum {
+            font-size: 2em; /* 放大2号字体 */
+            font-weight: bold; /* 加粗 */
+        }
+    </style>
+</head>
+<body>
+    <h1>查询结果</h1>
+    {% if results %}
+        <table border="1">
+            <tr>
+                <th>病例号</th>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>植体品牌</th>
+                <th>牙位</th>
+                <th>数量</th>
+                <th>总价</th>
+                <th>备注</th>
+                <th>创建日期</th>
+                <th>操作</th>
+            </tr>
+            {% for row in results %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td{% if row[6] < 0 %} class="negative"{% endif %}>{{ row[6] }}</td>
+                <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
+                <td>
+                    <form action="/delete" method="post">
+                        <input type="hidden" name="case_number" value="{{ row[0] }}">
+                        <input type="submit" value="删除">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p class="total-sum">总价合计: {{ total_sum if total_sum is not none else '未计算' }}</p>
+    {% else %}
+        <p>没有找到匹配的结果。</p>
+    {% endif %}
+    <br>
+    <a href="/">返回主页</a>
+</body>
+</html>
