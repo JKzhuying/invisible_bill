@@ -11,6 +11,18 @@
             font-size: 2em; /* 放大2号字体 */
             font-weight: bold; /* 加粗 */
         }
+        button, input[type="submit"], a.button {
+            background-color: #4CAF50; /* 按钮背景颜色 */
+            color: white; /* 按钮文字颜色 */
+            padding: 12px 20px; /* 按钮内边距 */
+            border: none; /* 无边框 */
+            cursor: pointer; /* 鼠标悬停时显示指针 */
+            font-size: 16px; /* 文字大小 */
+            transition: background-color 0.3s; /* 过渡效果 */
+        }
+        button:hover, input[type="submit"]:hover, a.button:hover {
+            background-color: #45a049; /* 鼠标悬停时的背景颜色 */
+        }
     </style>
 </head>
 <body>
@@ -54,6 +66,6 @@
         <p>没有找到匹配的结果。</p>
     {% endif %}
     <br>
-    <a href="/">返回主页</a>
+    <a href="/" class="button">返回主页</a>
 </body>
 </html>

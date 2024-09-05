@@ -3,6 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>弘仁口腔种植记录系统</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            min-height: 100vh; /* 最小高度为视口高度 */
+            background: #f7f7f7; /* 背景颜色 */
+        }
+        h1 {
+            font-size: 4em; /* 放大字号 */
+            font-weight: bold; /* 加粗 */
+            font-family: '黑体', sans-serif; /* 使用黑体字体 */
+            text-align: center; /* 居中显示 */
+            margin: 20px 0; /* 调整上下边距 */
+            color: #333; /* 标题颜色 */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* 使子元素在顶部对齐 */
+            width: 100%;
+            max-width: 1200px; /* 容器最大宽度 */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .input-area, .query-area {
+            width: 48%; /* 两个区域各占一半宽度 */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        /* 统一调整除标题外的字体大小 */
+        .container, label, input, select, textarea, button, input[type="submit"], .total-sum {
+            font-size: 20px; /* 放大4号字体 */
+        }
+        .query-area form:first-of-type {
+            margin-bottom: 100px; /* 增加第一个表单的底部边距 */
+        }
+        button, input[type="submit"] {
+            background-color: #4CAF50; /* 按钮背景颜色 */
+            color: white; /* 按钮文字颜色 */
+            padding: 12px 20px; /* 按钮内边距 */
+            border: none; /* 无边框 */
+            cursor: pointer; /* 鼠标悬停时显示指针 */
+            font-size: 16px; /* 文字大小 */
+            transition: background-color 0.3s; /* 过渡效果 */
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #45a049; /* 鼠标悬停时的背景颜色 */
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .input-area, .query-area {
+                width: 100%;
+            }
+            .query-area form:first-of-type {
+                margin-bottom: 20px; /* 小屏幕上减少边距 */
+            }
+        }
+    </style>
     <script>
         function validateForm() {
             var total = document.forms["dataForm"]["total"].value;
@@ -17,41 +81,55 @@
 </head>
 <body>
     <h1>弘仁口腔种植记录系统</h1>
-    <form name="dataForm" action="/" method="post" onsubmit="return validateForm()">
-        <label for="case_number">病例号:</label>
-        <input type="text" id="case_number" name="case_number" readonly><br><br>
-        
-        <label for="姓名">姓名:</label>
-        <input type="text" id="姓名" name="name"><br><br>
-        <label for="电话">电话:</label>
-        <input type="text" id="电话" name="telephone"><br><br>
-        <label for="植体品牌">植体品牌:</label>
-        <select id="植体品牌" name="implant">
-            <option value="创英（ITI）">创英（ITI）</option>
-            <option value="奥齿泰（K）">奥齿泰（K）</option>
-            <option value="皓圣（K）">皓圣（K）</option>
-        </select><br><br>
-        
-        <label for="牙位">牙位:</label>
-        <input type="text" id="牙位" name="position"><br><br>
-        <label for="数量">数量:</label>
-        <input type="number" id="数量" name="quantity"><br><br>
-        <label for="总价">总价:</label>
-        <input type="number" id="总价" name="total"><br><br>
-        <label for="备注">备注:</label>
-        <textarea id="备注" name="notes"></textarea><br><br>
-        <input type="submit" value="保存">
-        <button type="button" onclick="clearForm()">清除</button>
-    </form>
-
-    <form action="/query" method="get">
-        <label for="name">姓名:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="telephone">电话:</label>
-        <input type="text" id="telephone" name="telephone"><br><br>
-        <input type="submit" value="查询">
-    </form>
-
+    <div class="container">
+        <div class="input-area">
+            <form name="dataForm" action="/" method="post" onsubmit="return validateForm()">
+                <label for="case_number">病例号:</label>
+                <input type="text" id="case_number" name="case_number" readonly><br><br>
+                
+                <label for="姓名">姓名:</label>
+                <input type="text" id="姓名" name="name"><br><br>
+                <label for="电话">电话:</label>
+                <input type="text" id="电话" name="telephone"><br><br>
+                <label for="植体品牌">植体品牌:</label>
+                <select id="植体品牌" name="implant">
+                    <option value="创英（ITI）">创英（ITI）</option>
+                    <option value="奥齿泰（K）">奥齿泰（K）</option>
+                    <option value="皓圣（K）">皓圣（K）</option>
+                </select><br><br>
+                
+                <label for="牙位">牙位:</label>
+                <input type="text" id="牙位" name="position"><br><br>
+                <label for="数量">数量:</label>
+                <input type="number" id="数量" name="quantity"><br><br>
+                <label for="总价">总价:</label>
+                <input type="number" id="总价" name="total"><br><br>
+                <label for="备注">备注:</label>
+                <textarea id="备注" name="notes"></textarea><br><br>
+                <input type="submit" value="保存">
+                <button type="button" onclick="clearForm()">重新输入</button>
+            </form>
+        </div>
+        <div class="query-area">
+            <form action="/query" method="get">
+                <label for="name">姓名:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="telephone">电话:</label>
+                <input type="text" id="telephone" name="telephone"><br><br>
+                <input type="submit" value="查询">
+            </form>
+            
+            <form action="/search_by_date" method="get">
+                <label for="start_date">开始日期 (YYYY-MM-DD):</label>
+                <input type="date" id="start_date" name="start_date" required><br><br>
+                
+                <label for="end_date">结束日期 (YYYY-MM-DD):</label>
+                <input type="date" id="end_date" name="end_date" required><br><br>
+                
+                <input type="submit" value="查询">
+            </form>
+        </div>
+    </div>
     <script>
         function clearForm() {
             document.getElementById('姓名').value = '';
@@ -61,7 +139,7 @@
             document.getElementById('数量').value = '';
             document.getElementById('总价').value = '';
             document.getElementById('备注').value = '';
-            document.getElementById('case_number').value = '';
+            //不去清除病例号内的内容
         }
         
         // 页面加载完成后生成病例号
@@ -74,15 +152,5 @@
             document.getElementById('case_number').value = caseNumber;
         };
     </script>
-
-    <form action="/search_by_date" method="get">
-        <label for="start_date">开始日期 (YYYY-MM-DD):</label>
-        <input type="date" id="start_date" name="start_date" required><br><br>
-        
-        <label for="end_date">结束日期 (YYYY-MM-DD):</label>
-        <input type="date" id="end_date" name="end_date" required><br><br>
-        
-        <input type="submit" value="查询">
-    </form>
 </body>
 </html>
