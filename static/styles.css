@@ -7,7 +7,10 @@ body, html {
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */
     min-height: 100vh; /* 最小高度为视口高度 */
-    background: #f7f7f7; /* 背景颜色 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度 */
+    background: url('background.jpg') no-repeat center center fixed; /* 设置背景图片 */
+    background-size: cover; /* 覆盖整个视口 */
 }
 h1 {
     font-size: 4em; /* 放大字号 */
